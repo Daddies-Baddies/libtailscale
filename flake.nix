@@ -103,44 +103,6 @@
                 mainProgram = "tailscale-echo-server";
               };
             };
-
-            default = pkgs.stdenv.mkDerivation {
-              pname = "libtailscale";
-              version = "0.1.0";
-
-              src = ./.;
-
-              nativeBuildInputs = with pkgs; [go];
-
-              buildPhase = ''
-                runHook preBuild
-
-                make c-archive
-                make shared
-
-                runHook postBuild
-              '';
-
-              installPhase = ''
-                runHook preInstall
-
-                mkdir -p $out/lib $out/include
-
-                cp libtailscale.a $out/lib/
-                cp libtailscale.so $out/lib/
-                cp tailscale.h $out/include/
-
-                runHook postInstall
-              '';
-
-              meta = with pkgs.lib; {
-                description = "A C library that embeds Tailscale into a process";
-                homepage = "https://github.com/tailscale/tailscale";
-                license = licenses.bsd3;
-                maintainers = with maintainers; [];
-                platforms = platforms.unix;
-              };
-            };
           };
 
           devShells.default = pkgs.mkShell {
