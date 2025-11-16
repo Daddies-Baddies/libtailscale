@@ -13,7 +13,7 @@ With the latest version of Go, run:
 go build -buildmode=c-archive
 ```
 
-or 
+or
 
 ```
 make archive
